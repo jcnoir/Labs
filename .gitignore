@@ -6,6 +6,8 @@ tmp/**/*
 *.swp
 *~.nib
 *.log
+
+# Mac files
 .DS_Store
 ._*
 
@@ -29,7 +31,6 @@ local.properties
 
 # sbt specific
 dist/*
-target/
 lib_managed/
 src_managed/
 project/boot/
