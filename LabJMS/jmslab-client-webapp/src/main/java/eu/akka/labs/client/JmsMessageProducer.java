@@ -28,6 +28,7 @@ public class JmsMessageProducer {
 	private static final String JBOSS_JNDI_PROVIDER_URL = res.getString("JBOSS_JNDI_PROVIDER_URL");
 	private static final String JBOSS_JNDI_INITIAL_CONTEXT_FACTORY = res.getString("JBOSS_JNDI_INITIAL_CONTEXT_FACTORY");
 
+
 	private static final String JBOSS_JMS_CONNECTION_FACTORY = res.getString("JBOSS_JMS_CONNECTION_FACTORY");
 	private static final String JNDI_INPUT_JMS_QUEUE = res.getString("JNDI_INPUT_JMS_QUEUE");
 
@@ -36,7 +37,6 @@ public class JmsMessageProducer {
 	 * 
 	 * @param myObject
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void sendJmsObjectMessage(Serializable myObject) {
 
 		Context jndiContext = null;
@@ -48,8 +48,8 @@ public class JmsMessageProducer {
 
 		try {
 			// [1] Create a JNDI API InitialContext object.
-			Hashtable properties = new Hashtable(2);
-			properties.put(Context.INITIAL_CONTEXT_FACTORY, JBOSS_JNDI_INITIAL_CONTEXT_FACTORY);
+			Hashtable<String, String> properties = new Hashtable<String, String>(2);
+	        properties.put(Context.INITIAL_CONTEXT_FACTORY, JBOSS_JNDI_INITIAL_CONTEXT_FACTORY);
 			properties.put(Context.PROVIDER_URL, JBOSS_JNDI_PROVIDER_URL);
 			
 			logger.debug("Create Jndi Context with :" + Context.INITIAL_CONTEXT_FACTORY + "=" + JBOSS_JNDI_INITIAL_CONTEXT_FACTORY + " " + Context.PROVIDER_URL + "="

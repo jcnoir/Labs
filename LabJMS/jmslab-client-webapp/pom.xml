@@ -16,6 +16,10 @@
 
 	<packaging>war</packaging>
 
+	<!-- Properties -->
+	<properties>
+		<version.org.jboss.jbossas>6.1.0.Final</version.org.jboss.jbossas>
+	</properties>
 
 	<build>
 		<finalName>jmslab-client-webapp</finalName>
@@ -42,24 +46,14 @@
 			<version>1.2.16</version>
 		</dependency>
 
-		<!-- Official JBoss dependencies -->
-		<dependency>
-			<groupId>org.jboss.jbossas</groupId>
-			<artifactId>jboss-as-client</artifactId>
-			<type>pom</type>
-			<version>5.1.0.GA</version>
-		</dependency>
- 		
 		<!-- AKKA cleaned dependencies -->
-		<!-- 
 		<dependency>
 			<groupId>eu.akka.jbossas</groupId>
 			<artifactId>jboss-as-client</artifactId>
-			<version>5.1.0.GA</version>
+			<version>${version.org.jboss.jbossas}</version>
 			<type>pom</type>
 		</dependency>
- 		-->
- 				
+
 	</dependencies>
 
 	<profiles>

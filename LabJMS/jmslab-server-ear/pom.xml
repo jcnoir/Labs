@@ -15,7 +15,7 @@
 	<packaging>ear</packaging>
 
 	<properties>
-		<dataservice-destination-service>myservice-destinations-service.xml</dataservice-destination-service>
+		<queue-definition>jmslab-hornetq-jms.xml</queue-definition>
 	</properties>
 
 	<dependencies>
@@ -91,9 +91,9 @@
 								<configuration>
 									<tasks>
 										<echo
-											message="==========      Copy destinations-service  =============" />
+											message="==========      Copy queue definition file  =============" />
 										<copy overwrite="true"
-											file="${basedir}/src/main/config/${dataservice-destination-service}"
+											file="${basedir}/src/main/config/${queue-definition}"
 											todir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/messaging/" />
 									</tasks>
 								</configuration>
@@ -110,7 +110,7 @@
 										<delete failonerror="false">
 											<fileset
 												dir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/messaging/"
-												includes="${dataservice-destination-service}" />
+												includes="${queue-definition}" />
 										</delete>
 									</tasks>
 								</configuration>
