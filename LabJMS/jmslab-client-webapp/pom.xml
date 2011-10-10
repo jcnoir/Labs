@@ -18,6 +18,9 @@
 
 	<!-- Properties -->
 	<properties>
+		<!-- 
+			<version.org.jboss.jbossas>6.0.0.Final</version.org.jboss.jbossas>
+		 -->
 		<version.org.jboss.jbossas>6.1.0.Final</version.org.jboss.jbossas>
 	</properties>
 
