@@ -5,23 +5,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>eu.akka.labs</groupId>
-		<artifactId>labjms</artifactId>
+		<artifactId>lab_ejb31</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>eu.akka.labs</groupId>
-	<artifactId>jmslab-server-ear</artifactId>
-	<name>jmslab-server-ear</name>
+	<artifactId>lab_ejb31-server-ear</artifactId>
+	<name>lab_ejb31-server-ear</name>
 	<packaging>ear</packaging>
 
-	<properties>
-		<queue-definition>jmslab-hornetq-jms.xml</queue-definition>
-	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>eu.akka.labs</groupId>
-			<artifactId>jmslab-server-ejb</artifactId>
+			<artifactId>lab_ejb31-server-ejb</artifactId>
 			<version>${project.parent.version}</version>
 			<type>ejb</type>
 		</dependency>
@@ -29,7 +26,7 @@
 
 	<build>
 		<!-- nom de l'EAR -->
-		<finalName>jmslab-server</finalName>
+		<finalName>lab_ejb31-server</finalName>
 
 		<plugins>
 			<plugin>
@@ -39,7 +36,7 @@
 					<!-- Permet de generer le fichier de configuration jboss-app.xml -->
 					<jboss>
 						<version>5</version>
-						<loader-repository>jmslab-server:archive=jmslab-server.ear</loader-repository>
+						<loader-repository>lab_ejb31-server:archive=lab_ejb31-server.ear</loader-repository>
 					</jboss>
 
 					<!-- Permet de mettre tous les JAR autres que modules dans le repertoire 
@@ -73,46 +70,6 @@
 								</goals>
 								<configuration>
 									<serverName>${env.JBOSS_CONF}</serverName>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-
-					<!-- Permet de copier les fichiers de config -->
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>copy-config-files</id>
-								<phase>install</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<echo
-											message="==========      Copy queue definition file  =============" />
-										<copy overwrite="true"
-											file="${basedir}/src/main/config/${queue-definition}"
-											todir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/messaging/" />
-									</tasks>
-								</configuration>
-							</execution>
-
-							<execution>
-								<id>clean-config-files</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete failonerror="false">
-											<fileset
-												dir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/messaging/"
-												includes="${queue-definition}" />
-										</delete>
-									</tasks>
 								</configuration>
 							</execution>
 						</executions>
