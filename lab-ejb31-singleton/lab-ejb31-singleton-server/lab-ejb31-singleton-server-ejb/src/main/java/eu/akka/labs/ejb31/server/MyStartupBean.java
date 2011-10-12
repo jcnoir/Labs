@@ -1,4 +1,4 @@
-package eu.akka.labs.server;
+package eu.akka.labs.ejb31.server;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
