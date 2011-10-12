@@ -1,0 +1,17 @@
+-----------------------------------------------------------------------
+     Instructions pour generer et installer l'archetype en local
+-----------------------------------------------------------------------
+
+mvn clean archetype:create-from-project -DpackageName=eu.akka.project
+cd target/generated-sources/archetype
+mvn install
+
+-----------------------------------------------------------------------
+     Instruction pour créer unprojet depuis l'archetype
+-----------------------------------------------------------------------
+
+Se positionner dans un répertoire videdans lequel le projet sera cr�é. 
+mvn archetype:generate
+
+Choisir l'archetype : eu.akka.project:project-archetype (AKKA Toulouse Super Pom)
+

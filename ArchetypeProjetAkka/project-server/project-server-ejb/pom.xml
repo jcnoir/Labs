@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>project-server</artifactId>
+		<groupId>eu.akka.project.server</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>eu.akka.project.server</groupId>
+	<artifactId>project-server-ejb</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>jar</packaging>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.akka.project.common</groupId>
+			<artifactId>project-common-domain</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ejb</type>
+		</dependency>
+	</dependencies>
+</project>

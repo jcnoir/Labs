@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>project-server</artifactId>
+		<groupId>eu.akka.project.server</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>eu.akka.project.server</groupId>
+	<artifactId>project-server-ear</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>ear</packaging>
+
+
+
+	<profiles>
+	
+	 	<!-- JBOSS  5.x / 6.x -->
+		<profile>
+			<id>jboss</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<finalName>${project.artifactId}</finalName>
+				<plugins>
+					<plugin>
+						<artifactId>maven-ear-plugin</artifactId>
+						<version>2.4.2</version>
+						
+						<configuration>
+							<!-- Permet de generer le fichier de configuration jboss-app.xml -->
+							<jboss>
+								<version>6</version>
+								<loader-repository>${project.artifactId}:archive=${project.artifactId}.ear</loader-repository>
+							</jboss>
+
+							<!--
+								Permet de mettre tous les JAR autres que modules dans le
+								repertoire lib
+							-->
+							<defaultLibBundleDir>lib</defaultLibBundleDir>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jboss-maven-plugin</artifactId>
+						<version>1.4.1</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>hard-deploy</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+	 	<!-- GLASSFISH -->
+		<profile>
+			<id>glassfish</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<finalName>${project.artifactId}-gf</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.3.1</version>
+						<configuration>
+							<source>1.6</source>
+							<target>1.6</target>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-ear-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<!--
+								Permet de mettre tous les JAR autres que modules dans le
+								repertoire lib
+							-->
+							<defaultLibBundleDir>lib</defaultLibBundleDir>
+
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.akka.project.server</groupId>
+			<artifactId>project-server-ejb</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.akka.project.common</groupId>
+			<artifactId>project-common-domain</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.akka.project.server</groupId>
+			<artifactId>project-server-webapp</artifactId>
+			<version>${project.parent.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+</project>
