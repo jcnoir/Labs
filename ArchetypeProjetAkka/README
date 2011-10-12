@@ -7,10 +7,10 @@ cd target/generated-sources/archetype
 mvn install
 
 -----------------------------------------------------------------------
-     Instruction pour créer unprojet depuis l'archetype
+     Instruction pour creer un projet depuis l'archetype
 -----------------------------------------------------------------------
 
-Se positionner dans un répertoire videdans lequel le projet sera cr�é. 
+Se positionner dans un répertoire vide dans lequel le projet sera cree
 mvn archetype:generate
 
 Choisir l'archetype : eu.akka.project:project-archetype (AKKA Toulouse Super Pom)

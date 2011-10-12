@@ -31,7 +31,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.akka.project.common</groupId>
-			<artifactId>project-common-domain</artifactId>
+			<artifactId>project-common</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>test</scope>
 		</dependency>
