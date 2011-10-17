@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>lab-jms-server</artifactId>
+		<groupId>eu.akka.labs.jms.server</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>eu.akka.labs.jms.server</groupId>
+	<artifactId>lab-jms-server-ear</artifactId>
+	<name>lab-jms-server-ear</name>
+	<packaging>ear</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.akka.labs.jms.server</groupId>
+			<artifactId>lab-jms-server-ejb</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.akka.labs.jms.common</groupId>
+			<artifactId>lab-jms-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+	
+	 	<!-- JBOSS  5.x / 6.x -->
+		<profile>
+			<id>jboss</id>
+			
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			
+			<!-- Properties -->
+			<properties>
+				<!-- Valide pour les serveurs JBoss 5.x et 6.x -->
+				<version.jboss>5</version.jboss>
+
+				<!-- Proprietes pour l'utilisation de JBoss Messaging - Par defaut dans JBoss 5.x -->
+				<!--
+				<queue-definition>lab-jms-destinations-service.xml</queue-definition>
+				<jms-deploy-dir>messaging</jms-deploy-dir>
+				-->
+
+				<!-- Proprietes pour l'utilisation de HornetQ - Par defaut dans JBoss 6.x -->
+				<queue-definition>lab-jms-hornetq-jms.xml</queue-definition>
+				<jms-deploy-dir>hornetq</jms-deploy-dir>
+
+			</properties>
+	
+			<build>
+				<finalName>lab-jms-server-ear</finalName>
+				<plugins>
+					<!-- 
+					    Plugin pour creer l'EAR 
+					  -->
+					<plugin>
+						<artifactId>maven-ear-plugin</artifactId>
+						<version>2.6</version>
+						
+						<configuration>
+							<!-- Permet de generer le fichier de configuration jboss-app.xml -->
+							<jboss>
+								<version>${version.jboss}</version>
+								<loader-repository>lab-jms-server-ear:archive=lab-jms-server-ear.ear</loader-repository>
+							</jboss>
+
+							<!-- Permet de mettre tous les JAR autres que modules dans le repertoire lib -->
+							<defaultLibBundleDir>lib</defaultLibBundleDir>
+
+							<!-- Permet de renommer le WAR qui sera deploye dans l'EAR
+							<modules>
+		                        <webModule>
+									<groupId>groupId.de.la.dependance.war</groupId>
+									<artifactId>artifactId.de.la.dependance.war</artifactId>
+		                            <bundleFileName>my-webapp.war</bundleFileName>
+		                        </webModule>
+		                    </modules>
+		                    -->
+		                    
+						</configuration>
+					</plugin>
+
+					<!-- 
+					    Plugin pour faire le deploiement dans JBoos 
+					  -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jboss-maven-plugin</artifactId>
+						<version>1.4.1</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>hard-deploy</goal>
+								</goals>
+								<configuration>
+									<serverName>${env.JBOSS_CONF}</serverName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Permet de copier les fichiers de config -->
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-config-files</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo
+											message="========== Copy queue definition file  =============" />
+										<copy overwrite="true"
+											file="${basedir}/src/main/config/${queue-definition}"
+											todir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/${jms-deploy-dir}/" />
+									</tasks>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>clean-config-files</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete failonerror="false">
+											<fileset
+												dir="${env.JBOSS_HOME}/server/${env.JBOSS_CONF}/deploy/${jms-deploy-dir}/"
+												includes="${queue-definition}" />
+										</delete>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+	 	<!-- GLASSFISH 3.x -->
+		<profile>
+			<id>glassfish</id>
+			<activation>
+			</activation>
+			<build>
+				<finalName>lab-jms-server-ear-gf</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.3.1</version>
+						<configuration>
+							<source>1.6</source>
+							<target>1.6</target>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-ear-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<!-- Permet de mettre tous les JAR autres que modules dans le repertoire lib -->
+							<defaultLibBundleDir>lib</defaultLibBundleDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>
+
+</project>
