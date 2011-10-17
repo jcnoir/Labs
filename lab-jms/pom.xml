@@ -32,22 +32,23 @@
   <dependencies>
 
 	<!-- JEE 5 dependency --> 
-	<!--
+
 	<dependency>
 		<groupId>com.sun.javaee</groupId>
 		<artifactId>javaee</artifactId>
 		<version>5.0</version>
 		<scope>provided</scope>
 	</dependency>
-	-->
 	
 	<!-- JEE 6 dependency --> 
+	<!--
 	<dependency>
 		<groupId>javax</groupId>
 		<artifactId>javaee-api</artifactId>
 		<version>6.0</version>
 		<scope>provided</scope>
 	</dependency>
+	-->
 
 	<!-- Logger -->
 	<dependency>

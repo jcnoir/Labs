@@ -46,14 +46,15 @@
 				<version.jboss>5</version.jboss>
 
 				<!-- Proprietes pour l'utilisation de JBoss Messaging - Par defaut dans JBoss 5.x -->
-				<!--
+
 				<queue-definition>lab-jms-destinations-service.xml</queue-definition>
 				<jms-deploy-dir>messaging</jms-deploy-dir>
-				-->
 
 				<!-- Proprietes pour l'utilisation de HornetQ - Par defaut dans JBoss 6.x -->
+				<!--
 				<queue-definition>lab-jms-hornetq-jms.xml</queue-definition>
 				<jms-deploy-dir>hornetq</jms-deploy-dir>
+				-->
 
 			</properties>
 	
