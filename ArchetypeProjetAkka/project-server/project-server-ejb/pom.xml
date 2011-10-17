@@ -21,7 +21,6 @@
 			<groupId>eu.akka.project.common</groupId>
 			<artifactId>project-common</artifactId>
 			<version>${project.parent.version}</version>
-			<type>ejb</type>
 		</dependency>
 	</dependencies>
 </project>
